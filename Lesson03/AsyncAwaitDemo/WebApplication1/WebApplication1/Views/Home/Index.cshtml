@@ -1,0 +1,44 @@
+﻿@using WebApplication1.Extensions
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Home Page";
+    var value = Context.Session.Get<string>("username");
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<h3>Current culture: @CultureInfo.CurrentCulture.Name</h3>
+<h3>Current UI culture: @CultureInfo.CurrentUICulture.Name</h3>
+@if (Context.Session.ContainsKey("username"))
+{
+    <h1>Hello, @value!</h1>
+}
+else
+{
+    <h1>Unknown</h1>
+}
+<a asp-controller="People" asp-action="Index">People</a>
+<button id="btn-get-query">Test get query to api/people with basic auth</button>
+
+@section Scripts {
+    <script>
+        $(document).ready(() => {
+            $('#btn-get-query').click(() => {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:39737/api/people',
+                    headers: {
+                        'Authorization': `Basic ${btoa('vasya:pupkin')}`
+                    },
+                    success: (res) => {
+                        console.log(res);
+                    }
+                })
+            });
+        });
+    </script>
+}

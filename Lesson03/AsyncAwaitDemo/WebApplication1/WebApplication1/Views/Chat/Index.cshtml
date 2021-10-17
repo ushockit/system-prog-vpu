@@ -1,0 +1,31 @@
+﻿<h1>Chat</h1>
+<input id="input-msg"/>
+<button id="btn-send-msg">Send message</button>
+
+@section Scripts {
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            const chatHubConnection = new signalR.HubConnectionBuilder().withUrl('/chathub').build();
+
+            chatHubConnection.on('newMessage', (msg) => {
+                console.log('Receive message', msg);
+            });
+
+            chatHubConnection.on('newClientConnected', (clientConnectionId) => {
+                console.log('New client connected', clientConnectionId);
+            });
+
+            chatHubConnection.on('clientDisconnected', (clientConnectionId) => {
+                console.log('Client disconnected', clientConnectionId);
+            });
+
+            chatHubConnection.start();
+
+
+            $('#btn-send-msg').click(() => {
+                chatHubConnection.invoke('sendMessage', $('#input-msg').val());
+            });
+        });
+    </script>
+}

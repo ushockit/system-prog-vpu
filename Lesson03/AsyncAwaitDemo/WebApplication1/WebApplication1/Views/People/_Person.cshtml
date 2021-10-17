@@ -1,0 +1,15 @@
+﻿@using WebApplication1.Models.People
+@model PersonModel
+
+<div class="card" style="width: 18rem;">
+    <img src="https://img.icons8.com/plasticine/2x/person-male.png" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">@Model.LastName @Model.FirstName</h5>
+        <div class="card-text">
+            <p>Id = @Model.Id</p>
+            <p>First name: @Model.FirstName</p>
+            <p>Last name: @Model.LastName</p>
+        </div>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>

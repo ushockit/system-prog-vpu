@@ -1,0 +1,23 @@
+﻿@using WebApplication1.Models.People
+@model PersonModel
+
+
+<form method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <div class="form-group">
+        <label for="first-name-input">First name</label>
+        @*@Html.TextBox("firstName", Model.FirstName, new { id = "first-name-input", @class = "form-control" })*@
+        
+        <input type="text" value="@Model.FirstName" name="firstName" class="form-control" id="first-name-input">
+    </div>
+    <div class="form-group">
+        <label for="last-name-input">Last name</label>
+        <input type="text" value="@Model.LastName" name="lastName" class="form-control" id="last-name-input">
+    </div>
+    <div class="form-group">
+        <label for="birth-input">Birth</label>
+        @*<input type="date" value="@birth" name="birth" class="form-control" id="birth-input">*@
+        @Html.DateInput("birth", Model.Birth, new { id = "date-input", @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

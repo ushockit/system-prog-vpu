@@ -1,0 +1,6 @@
+﻿@using WebApplication1.Models.People
+@model PersonModel
+
+<a asp-action="Index">Back to list</a>
+<h3>Person full info</h3>
+@await Html.PartialAsync("_Person", Model)

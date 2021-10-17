@@ -1,0 +1,43 @@
+﻿@using WebApplication1.Models.People
+@* Строготипизированное представление *@
+@*@model List<PersonViewModel>*@
+@model PeopleIndexViewModel
+@*@{
+        List<PersonViewModel> people = ViewData["people"] as List<PersonViewModel>;
+}*@
+
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+
+<h1>People</h1>
+<h3>@Localizer["WelcomeTitle"]</h3>
+<a asp-action="Create">Create</a>
+@if (Model.People.Count > 0)
+{
+    <div class="people-list">
+        @*@foreach (var person in people)
+            {
+                <li>#@person.Id @person.LastName @person.FirstName @person.Birth</li>
+            }*@
+        @foreach (var person in Model.People)
+        {
+            <div class="person-info">
+                @*#@person.Id @person.LastName @person.FirstName @person.Birth -*@
+                @await Html.PartialAsync("_Person", person)
+                <div class="person-actions">
+                    <a asp-action="Delete" asp-route-id="@person.Id">Delete</a> |
+                    <a asp-action="Edit" asp-route-id="@person.Id">Edit</a> |
+                    <a asp-action="Detail" asp-route-id="@person.Id">Detail</a>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    <p>Max: @Model.MaxPerson?.Id</p>
+    <p>Min: @Model.MinPerson?.Id</p>
+}
+else
+{
+    <h4>People list is empty</h4>
+}
